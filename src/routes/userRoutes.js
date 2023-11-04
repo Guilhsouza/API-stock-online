@@ -7,4 +7,6 @@ const routes = Router()
 
 routes.post('/usuario', validateBodyReq(userSchema.registerValidate), controls.createUser)
 
+routes.post('/login', validateBodyReq(userSchema.loginValidate), controls.login)
+
 module.exports = routes
