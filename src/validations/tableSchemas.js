@@ -9,7 +9,9 @@ const createTableSchema = joi.object({
             'string.empty': 'O nome da tabela é um campo obrigatório',
             'string.max': 'O nome da tabela pode ter até 20 caracteres'
         }),
+})
 
+const addProductsSchema = joi.object({
     productName: joi.string()
         .required()
         .max(255)
@@ -45,5 +47,7 @@ const createTableSchema = joi.object({
             'string.max': 'A descrição não pode ter mais que 500 caracteres'
         })
 })
-
-module.exports = createTableSchema
+module.exports = {
+    createTableSchema,
+    addProductsSchema
+}

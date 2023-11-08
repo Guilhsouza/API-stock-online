@@ -13,6 +13,6 @@ routes.post('/login', validateBodyReq(userSchema.loginValidate), userControls.lo
 
 routes.use(verifyToken)
 
-routes.post('/tabela', validateBodyReq(tableSchema), tableControls.createTable)
+routes.post('/tabela', validateBodyReq(tableSchema.createTableSchema), tableControls.createTable)
 
 module.exports = routes
