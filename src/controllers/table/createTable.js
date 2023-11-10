@@ -3,10 +3,9 @@ const pool = require('../../connection/pgConnection')
 
 const createTable = async (req, res) => {
     const { tableName } = req.body
-    const { id, name } = req.user
 
     try {
-        const usernameSchema = `${name}${id}`
+        const usernameSchema = `${req.user.name}${req.user.id}`
 
         const createSchema = await pool.query(`CREATE SCHEMA IF NOT EXISTS ${usernameSchema}`)
 
@@ -21,8 +20,8 @@ const createTable = async (req, res) => {
             table.string('product_name')
             table.integer('amount_stock')
             table.decimal('price', 10, 2)
-            table.string('description_of_product')
-            table.string('link_for_product')
+            table.string('description', 500)
+            table.string('link')
         })
 
         return res.status(204).send()
