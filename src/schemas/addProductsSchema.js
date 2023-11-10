@@ -1,18 +1,7 @@
 const joi = require('joi')
 
-const createTableSchema = joi.object({
-    tableName: joi.string()
-        .required()
-        .max(20)
-        .messages({
-            'any.required': 'O nome da tabela é um campo obrigatório',
-            'string.empty': 'O nome da tabela é um campo obrigatório',
-            'string.max': 'O nome da tabela pode ter até 20 caracteres'
-        }),
-})
-
 const addProductsSchema = joi.object({
-    productName: joi.string()
+    product_name: joi.string()
         .required()
         .max(255)
         .messages({
@@ -21,7 +10,7 @@ const addProductsSchema = joi.object({
             'string.max': 'O nome do produto não pode ter mais que 255 caracteres'
         }),
 
-    amountInStock: joi.number()
+    amount_stock: joi.number()
         .required()
         .integer()
         .positive()
@@ -32,7 +21,7 @@ const addProductsSchema = joi.object({
             'number.positive': 'O estoque precisa ser um número positivo'
         }),
 
-    value: joi.number()
+    price: joi.number()
         .positive()
         .precision(2)
         .messages({
@@ -42,12 +31,12 @@ const addProductsSchema = joi.object({
         }),
 
     description: joi.string()
-        .max(500)
+        .max(255)
         .messages({
             'string.max': 'A descrição não pode ter mais que 500 caracteres'
-        })
+        }),
+
+    link: joi.string()
 })
-module.exports = {
-    createTableSchema,
-    addProductsSchema
-}
+
+module.exports = addProductsSchema
