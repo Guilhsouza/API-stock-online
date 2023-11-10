@@ -1,6 +1,5 @@
-const knex = require('../connection/dbConnection')
-const pool = require('../connection/pgConnection')
-const isURL = require('isurl')
+const knex = require('../../connection/dbConnection')
+const pool = require('../../connection/pgConnection')
 
 const createTable = async (req, res) => {
     const { tableName } = req.body
@@ -11,9 +10,7 @@ const createTable = async (req, res) => {
 
         const createSchema = await pool.query(`CREATE SCHEMA IF NOT EXISTS ${usernameSchema}`)
 
-        const validateTable = await knex.schema.hasTable(tableName).then((exists) => {
-            if (exists) { return true }
-        })
+        const validateTable = await knex.schema.hasTable(tableName).withSchema(usernameSchema)
 
         if (validateTable) {
             return res.status(400).json({ message: `A tabela com nome: "${tableName}" já existe, por favor insira um nome diferente` })
@@ -35,6 +32,4 @@ const createTable = async (req, res) => {
     }
 }
 
-module.exports = {
-    createTable
-}
+module.exports = createTable
