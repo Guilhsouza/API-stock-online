@@ -19,6 +19,4 @@ const registerValidate = joi.object({
     })
 })
 
-module.exports = {
-    registerValidate
-}
+module.exports = registerValidate
