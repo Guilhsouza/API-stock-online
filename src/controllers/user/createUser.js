@@ -9,7 +9,7 @@ const createUser = async (req, res) => {
         const findUser = await findUserByEmail(email)
 
         if (findUser) {
-            return res.status(400).json({ message: `O Email ${email} já está sendo utilizado por outro usuário, por favor insira um email diferente.` })
+            return res.status(409).json({ message: `O Email ${email} já está sendo utilizado por outro usuário, por favor insira um email diferente.` })
         }
         const passCrypt = await bcrypt.hash(password, 10)
 
