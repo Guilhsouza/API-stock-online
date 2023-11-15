@@ -10,13 +10,13 @@ const login = async (req, res) => {
         const findUser = await findUserByEmail(email)
 
         if (!findUser) {
-            return res.status(404).json({ message: 'Usuário não encontrado!' })
+            return res.status(404).json({ message: 'Usuário ou senha incorreto!' })
         }
 
         const verifyPassword = await bcrypt.compare(password, findUser.password)
 
         if (!verifyPassword) {
-            return res.status(400).json({ message: 'Senha incorreta!' })
+            return res.status(400).json({ message: 'Usuário ou senha incorreto!' })
         }
 
         const token = jwt.sign(
