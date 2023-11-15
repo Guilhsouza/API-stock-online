@@ -1,9 +1,10 @@
 const joi = require('joi')
 
 const registerValidate = joi.object({
-    name: joi.string().required().messages({
-        'any.required': 'O nome é um campo obrigatório',
-        'string.empty': 'O nome é um campo obrigatório'
+    name: joi.string().alphanum().required().messages({
+        'string.alphanum': 'O nome não pode ter caracteres especiais.',
+        'any.required': 'O nome é um campo obrigatório.',
+        'string.empty': 'O nome é um campo obrigatório.'
     }),
 
     email: joi.string().email().required().messages({
