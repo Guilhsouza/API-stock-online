@@ -6,6 +6,7 @@ const login = require('../controllers/user/login')
 const createTable = require('../controllers/table/createTable')
 const insertProducts = require('../controllers/table/insertProducts')
 const updateProdutcs = require('../controllers/table/updateProducts')
+const listingTables = require('../controllers/table/listingTables')
 
 const validateBodyReq = require('../middlewares/bodyValidate')
 const verifyToken = require('../middlewares/confirmUserToken')
@@ -26,6 +27,7 @@ routes.use(verifyToken)
 routes.post('/table', validateBodyReq(createTableSchema), createTable)
 routes.post('/table/:tableName', validateBodyReq(addProductsSchema), insertProducts)
 routes.patch('/table/:tableName/:product_id', validateBodyReq(updateProductsSchema), updateProdutcs)
+routes.get('/table', listingTables)
 
 module.exports = routes
 
