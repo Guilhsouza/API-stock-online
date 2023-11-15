@@ -1,5 +1,4 @@
 const knex = require('../../connection/dbConnection')
-const pool = require('../../connection/pgConnection')
 
 const createTable = async (req, res) => {
     const { tableName } = req.body
@@ -7,7 +6,7 @@ const createTable = async (req, res) => {
     try {
         const usernameSchema = `${req.user.name}${req.user.id}`
 
-        const createSchema = await pool.query(`CREATE SCHEMA IF NOT EXISTS ${usernameSchema}`)
+        const createSchema = await knex.schema.raw(`CREATE SCHEMA IF NOT EXISTS ${usernameSchema}`)
 
         const validateTable = await knex.schema.hasTable(tableName).withSchema(usernameSchema)
 
