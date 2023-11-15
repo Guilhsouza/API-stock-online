@@ -19,7 +19,7 @@ const createTable = async (req, res) => {
             table.increments('product_id')
             table.string('product_name')
             table.integer('amount_stock')
-            table.decimal('price', 10, 2)
+            table.integer('price')
             table.string('description', 500)
             table.string('link')
         })
