@@ -8,7 +8,7 @@ const updateProdutcs = async (req, res) => {
     try {
         const tableExists = await knex.schema
             .hasTable(tableName)
-            .withSchema()
+            .withSchema(usernameSchema)
 
         if (!tableExists) {
             return res.status(404).json({ message: `Tabela ${tableName} não foi encontrada!` })
