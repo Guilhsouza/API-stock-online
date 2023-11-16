@@ -13,7 +13,7 @@ const deleteTable = require('../controllers/table/deleteTable')
 const validateBodyReq = require('../middlewares/bodyValidate')
 const verifyToken = require('../middlewares/confirmUserToken')
 
-const registerValidate = require('../schemas/registerSchema')
+const createUserValidate = require('../schemas/createUserSchema')
 const loginValidate = require('../schemas/loginSchema')
 const createTableSchema = require('../schemas/createTableSchema')
 const addProductsSchema = require('../schemas/addProductsSchema')
@@ -21,7 +21,7 @@ const updateProductsSchema = require('../schemas/updateProductsSchema')
 
 const routes = Router()
 
-routes.post('/user', validateBodyReq(registerValidate), createUser)
+routes.post('/user', validateBodyReq(createUserValidate), createUser)
 routes.post('/user/login', validateBodyReq(loginValidate), login)
 
 routes.use(verifyToken)
