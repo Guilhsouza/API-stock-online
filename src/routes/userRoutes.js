@@ -7,6 +7,7 @@ const createTable = require('../controllers/table/createTable')
 const insertProducts = require('../controllers/table/insertProducts')
 const updateProdutcs = require('../controllers/table/updateProducts')
 const listingTables = require('../controllers/table/listingTables')
+const deleteProduct = require('../controllers/table/deleteProducts')
 
 const validateBodyReq = require('../middlewares/bodyValidate')
 const verifyToken = require('../middlewares/confirmUserToken')
@@ -28,6 +29,7 @@ routes.post('/table', validateBodyReq(createTableSchema), createTable)
 routes.post('/table/:tableName', validateBodyReq(addProductsSchema), insertProducts)
 routes.patch('/table/:tableName/:product_id', validateBodyReq(updateProductsSchema), updateProdutcs)
 routes.get('/table', listingTables)
+routes.delete('/table/:tableName/:product_id', deleteProduct)
 
 module.exports = routes
 
