@@ -6,18 +6,24 @@ const createTable = async (req, res) => {
     try {
         const usernameSchema = `${req.user.name}${req.user.id}`
 
-        const createSchema = await knex.schema.raw(`CREATE SCHEMA IF NOT EXISTS ${usernameSchema}`)
+        const createSchema = await knex.schema
+            .raw(`CREATE SCHEMA IF NOT EXISTS ${usernameSchema}`)
 
-        const validateTable = await knex.schema.hasTable(tableName).withSchema(usernameSchema)
+        const validateTable = await knex.schema
+            .hasTable(tableName)
+            .withSchema(usernameSchema)
 
         if (validateTable) {
             return res.status(400).json({ message: `A tabela com nome: "${tableName}" já existe, por favor insira um nome diferente` })
         }
 
-        const findMasterTable = await knex.schema.hasTable('master_table').withSchema(usernameSchema)
+        const findMasterTable = await knex.schema
+            .hasTable('master_table')
+            .withSchema(usernameSchema)
 
         if (!findMasterTable) {
-            const createMasterTable = await knex.schema.withSchema(usernameSchema)
+            const createMasterTable = await knex.schema
+                .withSchema(usernameSchema)
                 .createTable('master_table', (table) => {
                     table.increments('table_id')
                     table.integer('user_id')
@@ -25,7 +31,9 @@ const createTable = async (req, res) => {
                 })
         }
 
-        await knex('master_table').withSchema(usernameSchema).insert({ user_id: req.user.id, table_name: tableName })
+        await knex('master_table')
+            .withSchema(usernameSchema)
+            .insert({ user_id: req.user.id, table_name: tableName })
 
         const createTable = await knex.schema.withSchema(usernameSchema)
             .createTable(`${tableName}`, (table) => {
