@@ -6,7 +6,10 @@ const updateProdutcs = async (req, res) => {
     const usernameSchema = `${req.user.name}${req.user.id}`
 
     try {
-        const productExists = await knex(tableName).withSchema(usernameSchema).where({ product_id }).first()
+        const productExists = await knex(tableName)
+            .withSchema(usernameSchema)
+            .where({ product_id })
+            .first()
 
         if (!productExists) {
             return res.status(404).json({ message: 'O produto não foi encontrado!' })
@@ -16,7 +19,9 @@ const updateProdutcs = async (req, res) => {
             return res.status(400).json({ message: 'Ao menos um campo deve ser atualizado!' })
         }
 
-        const updateTable = await knex(tableName).withSchema(usernameSchema).update(req.body).where({ product_id })
+        const updateTable = await knex(tableName)
+            .withSchema(usernameSchema)
+            .update(req.body).where({ product_id })
 
         return res.status(200).json({ message: 'Tabela atualizada com sucesso!' })
     } catch (error) {
