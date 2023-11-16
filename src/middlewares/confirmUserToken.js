@@ -18,7 +18,7 @@ const verifyToken = async (req, res, next) => {
             return res.status(400).json({ message: '' })
         }
 
-        const findUser = await knex('usuarios').where({ id: verifyToken.id }).first()
+        const findUser = await knex('users').where({ id: verifyToken.id }).first()
 
         if (!findUser) {
             return res.status(404).json({ message: 'Usuário não encontrado!' })
