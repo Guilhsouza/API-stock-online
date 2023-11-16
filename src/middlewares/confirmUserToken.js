@@ -14,10 +14,6 @@ const verifyToken = async (req, res, next) => {
 
         const verifyToken = jwt.verify(token, secretKey)
 
-        if (!verifyToken) {
-            return res.status(400).json({ message: '' })
-        }
-
         const findUser = await knex('users').where({ id: verifyToken.id }).first()
 
         if (!findUser) {
@@ -30,8 +26,7 @@ const verifyToken = async (req, res, next) => {
 
         next()
     } catch (error) {
-        console.log(error)
-        return res.status(500).json(error.message)
+        return res.status(500).json({ message: 'Erro interno no servidor' })
     }
 
 }
