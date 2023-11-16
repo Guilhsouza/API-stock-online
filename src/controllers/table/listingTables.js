@@ -9,7 +9,7 @@ const listingTables = async (req, res) => {
             .withSchema(usernameSchema)
             .where('user_id', req.user.id).returning('table_name')
 
-        return res.status(200).json({ message: `Tabelas do usuário ${req.user.name}`, tabelas: tablesForUser })
+        return res.status(200).json({ message: `Tabelas do usuário ${req.user.first_name}`, tabelas: tablesForUser })
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: 'Erro interno no servidor' })
