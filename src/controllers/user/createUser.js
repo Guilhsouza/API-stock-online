@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const findUserByEmail = require('../../utils/findUserByEmail')
 
 const createUser = async (req, res) => {
-    const { name, email, password } = req.body
+    const { first_name, last_name, cellphone_number, email, password } = req.body
 
     try {
         const findUser = await findUserByEmail(email)
@@ -14,12 +14,14 @@ const createUser = async (req, res) => {
         const passCrypt = await bcrypt.hash(password, 10)
 
         const user = {
-            name,
+            first_name,
+            last_name,
+            cellphone_number,
             email,
             password: passCrypt
         }
 
-        const registerUserInDb = await knex('usuarios').insert(user).returning('*')
+        const registerUserInDb = await knex('users').insert(user).returning('*')
 
         const { password: _, ...userNotPass } = registerUserInDb[0]
 
