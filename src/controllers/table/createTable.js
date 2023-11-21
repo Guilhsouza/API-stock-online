@@ -4,7 +4,7 @@ const createTable = async (req, res) => {
     const { tableName } = req.body
 
     try {
-        const usernameSchema = `${req.user.name}${req.user.id}`
+        const usernameSchema = `${req.user.first_name}${req.user.id}`
 
         const createSchema = await knex.schema
             .raw(`CREATE SCHEMA IF NOT EXISTS ${usernameSchema}`)
