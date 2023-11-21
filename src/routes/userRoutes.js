@@ -2,6 +2,7 @@ const { Router } = require('express')
 
 const createUser = require('../controllers/user/createUser')
 const login = require('../controllers/user/login')
+const getUser = require('../controllers/user/getUser')
 
 const createTable = require('../controllers/table/createTable')
 const insertProducts = require('../controllers/table/insertProducts')
@@ -23,6 +24,7 @@ const routes = Router()
 
 routes.post('/user', validateBodyReq(createUserValidate), createUser)
 routes.post('/user/login', validateBodyReq(loginValidate), login)
+routes.get('/user/:id', getUser)
 
 routes.use(verifyToken)
 
