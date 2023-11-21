@@ -1,6 +1,7 @@
 const knex = require('../../connection/dbConnection')
 const bcrypt = require('bcrypt')
 const findUserByEmail = require('../../utils/findUserByEmail')
+const findUserByPhoneNumber = require('../../utils/findUserByPhoneNumber')
 
 const createUser = async (req, res) => {
     const { first_name, last_name, cellphone_number, email, password } = req.body
@@ -11,6 +12,13 @@ const createUser = async (req, res) => {
         if (findUser) {
             return res.status(409).json({ message: `O Email ${email} já está sendo utilizado por outro usuário, por favor insira um email diferente.` })
         }
+
+        const phoneExists = findUserByPhoneNumber(cellphone_number)
+
+        if (phoneExists) {
+            return res.status(409).json({ message: `O telefone ${cellphone_number} já está sendo utilizado por outro usuário, por favor insira um número diferente.` })
+        }
+
         const passCrypt = await bcrypt.hash(password, 10)
 
         const user = {
