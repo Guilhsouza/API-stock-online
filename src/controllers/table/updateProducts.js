@@ -31,7 +31,6 @@ const updateProdutcs = async (req, res) => {
             .withSchema(usernameSchema)
             .update(req.body).where({ product_id })
             .returning('*')
-        console.log(updateTable)
 
         return res.status(200).json({ message: 'Tabela atualizada com sucesso!' })
     } catch (error) {
