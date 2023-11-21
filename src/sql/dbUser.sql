@@ -1,6 +1,8 @@
-create table if not exists usuarios (
+create table if not exists users (
     id serial primary key,
-    name varchar(255),
+    first_name varchar(255),
+    last_name varchar(255),
     email varchar(255),
+    cellphone_number varchar(11),
     password varchar(1000)
 );

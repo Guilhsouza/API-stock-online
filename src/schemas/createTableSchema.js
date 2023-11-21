@@ -5,9 +5,9 @@ const createTableSchema = joi.object({
         .required()
         .max(20)
         .messages({
-            'any.required': 'O nome da tabela é um campo obrigatório',
-            'string.empty': 'O nome da tabela é um campo obrigatório',
-            'string.max': 'O nome da tabela pode ter até 20 caracteres'
+            'any.required': 'O nome da tabela é um campo obrigatório.',
+            'string.empty': 'O nome da tabela é um campo obrigatório.',
+            'string.max': 'O nome da tabela pode ter até 20 caracteres.'
         }),
 })
 

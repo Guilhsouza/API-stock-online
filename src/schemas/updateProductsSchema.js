@@ -1,21 +1,26 @@
 const joi = require('joi')
 
-const addProductsSchema = joi.object({
+const updateProductsSchema = joi.object({
+    id: joi.number()
+        .integer()
+        .positive()
+        .messages({
+            'number.base': 'O ID precisar ser um número válido.',
+            'number.integer': 'O ID precisa ser um número inteiro.',
+            'number.positive': 'O ID precisa ser um número positivo.'
+        }),
+
     product_name: joi.string()
-        .required()
         .max(255)
         .messages({
-            'any.required': 'O nome do produto é um campo obrigatório.',
-            'string.empty': 'O nome do produto é um campo obrigatório.',
+            'string.empty': 'O nome do produto não pode ser vazio.',
             'string.max': 'O nome do produto não pode ter mais que 255 caracteres.'
         }),
 
     amount_stock: joi.number()
-        .required()
         .integer()
         .positive()
         .messages({
-            'any.required': 'A quantidade no estoque é um campo obrigatório, podendo ser 0.',
             'number.base': 'A quantidade no estoque precisar ser um número válido.',
             'number.integer': 'O estoque precisa ser um número inteiro.',
             'number.positive': 'O estoque precisa ser um número positivo.'
@@ -33,10 +38,11 @@ const addProductsSchema = joi.object({
     description: joi.string()
         .max(255)
         .messages({
+            'string.empty': 'A descrição não pode estar vazia.',
             'string.max': 'A descrição não pode ter mais que 500 caracteres.'
         }),
 
     link: joi.string()
 })
 
-module.exports = addProductsSchema
+module.exports = updateProductsSchema

@@ -3,23 +3,25 @@ const bcrypt = require('bcrypt')
 const findUserByEmail = require('../../utils/findUserByEmail')
 
 const createUser = async (req, res) => {
-    const { name, email, password } = req.body
+    const { first_name, last_name, cellphone_number, email, password } = req.body
 
     try {
         const findUser = await findUserByEmail(email)
 
         if (findUser) {
-            return res.status(400).json({ message: `O Email ${email} já está sendo utilizado por outro usuário, por favor insira um email diferente.` })
+            return res.status(409).json({ message: `O Email ${email} já está sendo utilizado por outro usuário, por favor insira um email diferente.` })
         }
         const passCrypt = await bcrypt.hash(password, 10)
 
         const user = {
-            name,
+            first_name,
+            last_name,
+            cellphone_number,
             email,
             password: passCrypt
         }
 
-        const registerUserInDb = await knex('usuarios').insert(user).returning('*')
+        const registerUserInDb = await knex('users').insert(user).returning('*')
 
         const { password: _, ...userNotPass } = registerUserInDb[0]
 
