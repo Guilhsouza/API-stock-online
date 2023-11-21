@@ -7,7 +7,7 @@ const getUserByID = async (req, res) => {
         const findUser = await knex('users').where({ id }).first()
 
         if (!findUser) {
-            return res.status(404).json({ message: 'Usuário não encontrado!' })
+            return res.status(404).json({ message: `Usuário ${first_name} não foi encontrado(a)!` })
         }
 
         const { password: _, ...userNotPass } = findUser
