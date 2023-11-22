@@ -9,7 +9,7 @@ const updateUser = async (req, res) => {
 
     try {
         if (id !== String(req.user.id)) {
-            return res.status(400).json({ message: 'usuário não autorizado!' })
+            return res.status(401).json({ message: 'usuário não autorizado!' })
         }
 
         const userExists = await knex('users')
@@ -25,14 +25,10 @@ const updateUser = async (req, res) => {
 
         const emailExists = await findUserByEmail(email)
 
-        if (emailExists) {
-            return res.status(409).json({ message: `O Email ${email} já está sendo utilizado por outro usuário, por favor insira um email diferente.` })
-        }
-
         const phoneExists = await findUserByPhoneNumber(cellphone_number)
 
-        if (phoneExists) {
-            return res.status(409).json({ message: `O telefone ${cellphone_number} já está sendo utilizado por outro usuário, por favor insira um número diferente.` })
+        if (emailExists || phoneExists) {
+            return res.status(409).json({ message: `Email ou número de telefone já está sendo utilizado por outro usuário, por favor insira um dado diferente.` })
         }
 
         const updateUser = await knex('users')
