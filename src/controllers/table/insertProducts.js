@@ -3,7 +3,7 @@ const knex = require('../../connection/dbConnection')
 const insertProducts = async (req, res) => {
     const { tableName } = req.params
     const { product_name, amount_stock, price, description, link } = req.body
-    const usernameSchema = `${req.user.name}${req.user.id}`
+    const usernameSchema = `${req.user.first_name}${req.user.id}`
 
     try {
         const tableExists = await knex.schema
@@ -21,6 +21,7 @@ const insertProducts = async (req, res) => {
 
         return res.status(201).json({ message: 'Produto criado com sucesso' })
     } catch (error) {
+
         return res.status(500).json({ message: 'Erro interno no servidor.' })
     }
 }

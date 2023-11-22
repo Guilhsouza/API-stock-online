@@ -7,9 +7,10 @@ const updateUser = require('../controllers/user/updateUser')
 const deleteUser = require('../controllers/user/deleteUser')
 
 const createTable = require('../controllers/table/createTable')
-const insertProducts = require('../controllers/table/insertProducts')
-const updateProdutcs = require('../controllers/table/updateProducts')
 const listingTables = require('../controllers/table/listingTables')
+const insertProducts = require('../controllers/table/insertProducts')
+const listingProducts = require('../controllers/table/listingProducts')
+const updateProdutcs = require('../controllers/table/updateProducts')
 const deleteProduct = require('../controllers/table/deleteProducts')
 const deleteTable = require('../controllers/table/deleteTable')
 
@@ -36,11 +37,12 @@ routes.patch('/user/:id', validateBodyReq(updateUserSchema), updateUser)
 routes.delete('/user/:id', validateBodyReq(deleteUserSchema), deleteUser)
 
 routes.post('/table', validateBodyReq(createTableSchema), createTable)
+routes.get('/table', listingTables)
+routes.delete('/table/:tableName', deleteTable)
 routes.post('/table/:tableName', validateBodyReq(addProductsSchema), insertProducts)
 routes.patch('/table/:tableName/:product_id', validateBodyReq(updateProductsSchema), updateProdutcs)
-routes.get('/table', listingTables)
+routes.get('/table/:tableName', listingProducts)
 routes.delete('/table/:tableName/:product_id', deleteProduct)
-routes.delete('/table/:tableName', deleteTable)
 
 module.exports = routes
 

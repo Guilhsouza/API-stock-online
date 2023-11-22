@@ -1,7 +1,7 @@
 const knex = require('../../connection/dbConnection')
 
 const listingTables = async (req, res) => {
-    const usernameSchema = `${req.user.name}${req.user.id}`
+    const usernameSchema = `${req.user.first_name}${req.user.id}`
 
     try {
         const tablesForUser = await knex.select('table_name')

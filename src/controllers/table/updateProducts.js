@@ -3,7 +3,7 @@ const knex = require('../../connection/dbConnection')
 const updateProdutcs = async (req, res) => {
     const { tableName, product_id } = req.params
     const { product_name, amount_stock, price, description, link } = req.body
-    const usernameSchema = `${req.user.name}${req.user.id}`
+    const usernameSchema = `${req.user.first_name}${req.user.id}`
 
     try {
         const tableExists = await knex.schema
