@@ -14,7 +14,7 @@ const createTable = async (req, res) => {
             .withSchema(usernameSchema)
 
         if (validateTable) {
-            return res.status(400).json({ message: `A tabela com nome: "${tableName}" já existe, por favor insira um nome diferente` })
+            return res.status(409).json({ message: `A tabela com nome: "${tableName}" já existe, por favor insira um nome diferente` })
         }
 
         const findMasterTable = await knex.schema
