@@ -32,7 +32,7 @@ const updateProdutcs = async (req, res) => {
             .update(req.body).where({ product_id })
             .returning('*')
 
-        return res.status(200).json({ message: 'Tabela atualizada com sucesso!' })
+        return res.status(200).json({ message: 'Produto atualizado com sucesso!' })
     } catch (error) {
         return res.status(500).json({ message: 'Erro interno no servidor' })
     }
