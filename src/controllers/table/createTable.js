@@ -4,7 +4,7 @@ const createTable = async (req, res) => {
     const { tableName } = req.body
 
     try {
-        const usernameSchema = `${req.user.name}${req.user.id}`
+        const usernameSchema = `${req.user.first_name}${req.user.id}`
 
         const createSchema = await knex.schema
             .raw(`CREATE SCHEMA IF NOT EXISTS ${usernameSchema}`)
@@ -14,7 +14,7 @@ const createTable = async (req, res) => {
             .withSchema(usernameSchema)
 
         if (validateTable) {
-            return res.status(400).json({ message: `A tabela com nome: "${tableName}" já existe, por favor insira um nome diferente` })
+            return res.status(409).json({ message: `A tabela com nome: "${tableName}" já existe, por favor insira um nome diferente` })
         }
 
         const findMasterTable = await knex.schema
@@ -47,7 +47,6 @@ const createTable = async (req, res) => {
 
         return res.status(204).send()
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ mensagem: 'Erro interno no servidor' })
     }
 }

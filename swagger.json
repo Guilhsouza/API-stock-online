@@ -1,0 +1,1104 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API Online Stock",
+    "description": "Welcome to the Documentation of the Online Stock API!\n\nHere, we provide detailed information to facilitate the integration and optimize the usage of our Online Stock API, whether you are a developer or a business owner. Don't forget to perform token verification to access all functions of the API.",
+    "contact": {
+      "email": "gui.edu0380@gmail.com"
+    },
+    "version": "1.0.11"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:3000",
+      "description": "local server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations about user"
+    },
+    {
+      "name": "stock",
+      "description": "Access tables of stock"
+    }
+  ],
+  "paths": {
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "description": "Create an user with not exists",
+        "operationId": "createUser",
+        "requestBody": {
+          "description": "Created user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/HttpUserResponse201"
+          },
+          "409": {
+            "$ref": "#/components/responses/HttpUserResponse409"
+          },
+          "500": {
+            "$ref": "#/components/responses/Http500"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "requestBody": {
+          "description": "Login in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/HttpLoginResponse200"
+          },
+          "400": {
+            "$ref": "#/components/responses/HttpLoginResponse400"
+          },
+          "404": {
+            "$ref": "#/components/responses/HttpLoginResponse404"
+          },
+          "500": {
+            "$ref": "#/components/responses/Http500"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user by ID",
+        "description": "",
+        "operationId": "getUserByID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID that needs to be fetched. Use 1 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/HttpFindUserResponse200"
+          },
+          "404": {
+            "$ref": "#/components/responses/HttpFindUserResponse404"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID needs to be passed to update the user.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existent, allowing the addition of a single parameter up to all",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/HttpUpdateUserResponse200"
+          },
+          "400": {
+            "$ref": "#/components/responses/HttpUpdateUserResponse400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Http401"
+          },
+          "404": {
+            "$ref": "#/components/responses/HttpUpdateUserResponse404"
+          },
+          "409": {
+            "$ref": "#/components/responses/HttpUserResponse409"
+          },
+          "500": {
+            "$ref": "#/components/responses/Http500"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user and all the tables",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id that needs, to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/HttpDeleteUserResponse200"
+          },
+          "400": {
+            "$ref": "#/components/responses/HttpDeleteUserResponse400"
+          },
+          "404": {
+            "$ref": "#/components/responses/HttpFindUserResponse404"
+          },
+          "500": {
+            "$ref": "#/components/responses/Http500"
+          }
+        }
+      }
+    },
+    "/table": {
+      "post": {
+        "tags": [
+          "stock"
+        ],
+        "summary": "Create a table in unique schema",
+        "description": "Creata a table linked in your account",
+        "operationId": "createTable",
+        "requestBody": {
+          "description": "This can only be done by the logged in user.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createTable"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful No Content"
+          },
+          "400": {
+            "$ref": "#/components/responses/HttpCreateTableResponse409"
+          },
+          "500": {
+            "$ref": "#/components/responses/Http500"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "stock"
+        ],
+        "summary": "Listing your tables",
+        "description": "Return all the tables if you created.",
+        "operationId": "listingTables",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/HttpListingTableResponse200"
+          },
+          "500": {
+            "$ref": "#/components/responses/Http500"
+          }
+        }
+      }
+    },
+    "/table/{tableName}": {
+      "delete": {
+        "tags": [
+          "stock"
+        ],
+        "summary": "Delete Table",
+        "description": "Delete a table if it is empty",
+        "operationId": "deleteTable",
+        "parameters": [
+          {
+            "name": "tableName",
+            "in": "path",
+            "description": "the name of table",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/HttpDeleteTableResponse200"
+          },
+          "400": {
+            "$ref": "#/components/responses/HttpDeleteTableResponse400"
+          },
+          "404": {
+            "$ref": "#/components/responses/HttpDeleteTableResponse404"
+          },
+          "500": {
+            "$ref": "#/components/responses/Http500"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "stock"
+        ],
+        "summary": "Add products to the table",
+        "description": "Add one product in the table",
+        "operationId": "addProduct",
+        "parameters": [
+          {
+            "name": "tableName",
+            "in": "path",
+            "description": "the name of table",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Create a new product in the table, price in cents",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/insertProducts"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/HttpInsertProductsResponse201"
+          },
+          "405": {
+            "$ref": "#/components/responses/HttpInsertProductsResponse404"
+          },
+          "500": {
+            "$ref": "#/components/responses/Http500"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "stock"
+        ],
+        "summary": "Listing products",
+        "description": "list all the products, or specify a product with a query",
+        "operationId": "findPetsByStatus",
+        "parameters": [
+          {
+            "name": "tableName",
+            "in": "path",
+            "description": "The name of table",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productName",
+            "in": "query",
+            "description": "The name of specific product",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/HttpListingProductsResponse200q"
+          },
+          "404": {
+            "$ref": "#/components/responses/HttpListingProductsResponse404"
+          },
+          "500": {
+            "$ref": "#/components/responses/Http500"
+          }
+        }
+      }
+    },
+    "/table/{tableName}/{product_id}": {
+      "patch": {
+        "tags": [
+          "stock"
+        ],
+        "summary": "Update a product in table through the ID",
+        "description": "Updating data of a specific product",
+        "operationId": "updateProduct",
+        "parameters": [
+          {
+            "name": "tableName",
+            "in": "path",
+            "description": "Name of table",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "ID of product",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Updating product, allowing the addition of a single parameter up to all.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/insertProducts"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/HttpUpdateProductResponse200"
+          },
+          "400": {
+            "$ref": "#/components/responses/HttpUpdateProductResponse400"
+          },
+          "404": {
+            "$ref": "#/components/responses/HttpUpdateProductResponse404"
+          },
+          "500": {
+            "$ref": "#/components/responses/Http500"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "stock"
+        ],
+        "summary": "Deletes a product",
+        "description": "delete a product",
+        "operationId": "deleteProduct",
+        "parameters": [
+          {
+            "name": "tableName",
+            "in": "path",
+            "description": "Name of table",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "ID of product",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/HttpDeleteProductResponse200"
+          },
+          "404": {
+            "$ref": "#/components/responses/HttpDeleteProductResponse404"
+          },
+          "500": {
+            "$ref": "#/components/responses/Http500"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "createUser": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "example": "first username"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "last username"
+          },
+          "cellphone_number": {
+            "type": "string",
+            "example": 12999999999
+          },
+          "email": {
+            "type": "string",
+            "example": "email@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "myPassword"
+          }
+        }
+      },
+      "createdUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "first_name": {
+            "type": "string",
+            "example": "first username"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "last username"
+          },
+          "cellphone_number": {
+            "type": "string",
+            "example": 12999999999
+          },
+          "email": {
+            "type": "string",
+            "example": "email@example.com"
+          }
+        }
+      },
+      "login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "email@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "myPassword"
+          }
+        }
+      },
+      "userLogin": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "firt_name": {
+            "type": "string",
+            "example": "first username"
+          },
+          "email": {
+            "type": "string",
+            "example": "email@example.com"
+          }
+        }
+      },
+      "insertProducts": {
+        "type": "object",
+        "properties": {
+          "product_name": {
+            "type": "string",
+            "example": "product 1"
+          },
+          "amount_stock": {
+            "type": "integer",
+            "example": 100
+          },
+          "price": {
+            "type": "integer",
+            "example": 1000
+          },
+          "description": {
+            "type": "string",
+            "example": "a description for product 1"
+          },
+          "link": {
+            "type": "string",
+            "example": "https://linkforproduct.com/"
+          }
+        }
+      },
+      "listingProducts": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "product_name": {
+            "type": "string",
+            "example": "product 1"
+          },
+          "amount_stock": {
+            "type": "integer",
+            "example": 100
+          },
+          "price": {
+            "type": "integer",
+            "example": 1000
+          },
+          "description": {
+            "type": "string",
+            "example": "a description for product 1"
+          },
+          "link": {
+            "type": "string",
+            "example": "https://linkforproduct.com/"
+          }
+        }
+      },
+      "listingProductsWithTable": {
+        "type": "object",
+        "properties": {
+          "table": {
+            "type": "string",
+            "example": "Table Name"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/listingProducts"
+            }
+          }
+        }
+      },
+      "createTable": {
+        "type": "object",
+        "properties": {
+          "tableName": {
+            "type": "string",
+            "example": "New Table"
+          }
+        }
+      }
+    },
+    "responses": {
+      "HttpUserResponse201": {
+        "description": "Created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "$ref": "#/components/schemas/createdUser"
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpUserResponse409": {
+        "description": "Conflict",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Email or phone number in use, please insert another data."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpFindUserResponse200": {
+        "description": "Sucess",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "$ref": "#/components/schemas/createdUser"
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpFindUserResponse404": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User not found."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpLoginResponse200": {
+        "description": "Sucess",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "$ref": "#/components/schemas/userLogin"
+                },
+                "token": {
+                  "type": "string",
+                  "example": "iOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpLoginResponse400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User not found."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpLoginResponse404": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User not found."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpUpdateUserResponse200": {
+        "description": "Sucess",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User updated successfully."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpUpdateUserResponse400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "At least one field must be updated."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpUpdateUserResponse404": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User not found."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpDeleteUserResponse200": {
+        "description": "Sucess",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User has been deleted."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpDeleteUserResponse400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Incorrect password."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpCreateTableResponse409": {
+        "description": "Conflict",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "A table with name \"New Table\" already exists, please insert another name"
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpInsertProductsResponse201": {
+        "description": "Created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Product has been created."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpInsertProductsResponse404": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Table \"New Table\" not exists."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpListingProductsResponse200q": {
+        "description": "Sucess",
+        "content": {
+          "application/json": {
+            "schema": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/listingProductsWithTable"
+                },
+                {
+                  "$ref": "#/components/schemas/listingProducts"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "HttpListingProductsResponse200": {
+        "description": "Sucess",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/listingProducts"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpListingProductsResponse404": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Table or Product not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpDeleteTableResponse200": {
+        "description": "Sucess",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "The table has been deleted."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpDeleteTableResponse400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "The table must be empty to be deleted"
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpDeleteTableResponse404": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Table not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpListingTableResponse200": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Table from user \"first name user\""
+                },
+                "Tables": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": [
+                      "table 1",
+                      "table 2",
+                      "table 3"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpUpdateProductResponse200": {
+        "description": "Sucess",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "The product has been updated."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpUpdateProductResponse400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "At least one field must be updated."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpUpdateProductResponse404": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Table or product not found."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpDeleteProductResponse200": {
+        "description": "Sucess",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "The product has been deleted."
+                }
+              }
+            }
+          }
+        }
+      },
+      "HttpDeleteProductResponse404": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Table or product not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Http401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized user."
+                }
+              }
+            }
+          }
+        }
+      },
+      "Http500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Internal Server Error."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

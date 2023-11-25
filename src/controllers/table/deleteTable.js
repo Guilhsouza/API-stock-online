@@ -2,7 +2,7 @@ const knex = require('../../connection/dbConnection')
 
 const deleteTable = async (req, res) => {
     const { tableName } = req.params
-    const usernameSchema = `${req.user.name}${req.user.id}`
+    const usernameSchema = `${req.user.first_name}${req.user.id}`
 
     try {
         const tableExists = await knex.schema

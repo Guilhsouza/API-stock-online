@@ -1,7 +1,7 @@
 const knex = require('../../connection/dbConnection')
 
 const listingTables = async (req, res) => {
-    const usernameSchema = `${req.user.name}${req.user.id}`
+    const usernameSchema = `${req.user.first_name}${req.user.id}`
 
     try {
         const tablesForUser = await knex.select('table_name')
@@ -11,7 +11,6 @@ const listingTables = async (req, res) => {
 
         return res.status(200).json({ message: `Tabelas do usuário ${req.user.first_name}`, tabelas: tablesForUser })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ message: 'Erro interno no servidor' })
     }
 }
