@@ -8,10 +8,10 @@
 
 - [Estrutura e Arquitetura](#estrutura-e-arquitetura)
   
-- [Autenticação](#autenticação)
+- [Autenticação](#autenticacao)
   
 ## 📌 Sobre o Projeto
-A principal ideia deste projeto é oferecer operações de usuário e estoque em um ambiente online. Os usuários podem realizar um CRUD, criando, editando e excluindo uma conta, além da função de login. As operações de estoque incluem um CRUD simples para a tabela, e outro CRUD para os próprios produtos, possibilitando a criação, edição, busca específica e exclusão tanto das tabelas quanto dos produtos.
+A **principal ideia** deste projeto é oferecer **operações de usuário e estoque** em um ambiente online. Os **usuários podem realizar um CRUD**, criando, editando e excluindo uma conta, além da função de login. As operações de estoque incluem um CRUD simples para a tabela, e outro CRUD para os próprios produtos, possibilitando a **criação**, **edição**, **busca específica** e **exclusão tanto das tabelas quanto dos produtos**.
 
 ## 🧰 Tecnologias e Ferramentas Utilizadas
 
@@ -27,7 +27,12 @@ A principal ideia deste projeto é oferecer operações de usuário e estoque em
 </div>
 
 ## 🧱 Estrutura e Arquitetura
-O projeto segue os princípios da arquitetura limpa e leva também o princípio SRP do SOLID. O código foi organizado de acordo com os princípios de responsabilidade única, modularidade e reutilização.
+O projeto segue os princípios da **arquitetura limpa** e leva também o princípio **SRP** do **SOLID**. O código foi organizado de seguindo os conceitos de **responsabilidade única**, **modularidade** e **reutilização**.
 
 ## 🔏 Autenticação
-Para utilizar a API, é necessário se autenticar. Você deve obter um token JWT válido através do endpoint de login. O token JWT deve ser incluído no cabeçalho de autorização Bearer Token de todas as proximas solicitações. Dessa forma garantindo acesso total aos recursos da API.
+Para utilizar a API, é necessário **se autenticar**. Você deve obter um token **JWT válido** através do endpoint de login. O token JWT deve ser incluído no cabeçalho de autorização Bearer Token de todas as proximas solicitações. Dessa forma garantindo **acesso total** aos recursos da API.
+
+## 📃 Documentação da Aplicação
+A seguir, temos o link da **documentação oficial** da aplicação no **Swagger**: <br>
+https://api-stock-online.onrender.com/api-docs
+> obs: É possível ocorrer atraso no carregamento, isso acontece quando o deploy não é acessado por um certo tempo na plataforma, mas basta aguardar que uma requisição solicitará ao Render que a aplicação seja reativada.
