@@ -28,7 +28,6 @@ const login = async (req, res) => {
 
         return res.status(201).json({ user: userNotPass, token })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ message: 'Erro interno no servidor.' })
     }
 }
