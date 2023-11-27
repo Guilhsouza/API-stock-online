@@ -1,13 +1,13 @@
 {
   "name": "api-stockestoq-estoque-online",
   "version": "1.0.0",
-  "description": "",
+  "description": "API de um estoque online",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./src/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Guilherme Eduardo de Souza de Almeida",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
