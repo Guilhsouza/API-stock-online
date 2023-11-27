@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const secretKey = require('../keys/hashKey')
+const secretKey = process.env.SECRET_KEY
 const knex = require('../connection/dbConnection')
 
 const verifyToken = async (req, res, next) => {
@@ -26,6 +26,9 @@ const verifyToken = async (req, res, next) => {
 
         next()
     } catch (error) {
+        if (error.message === 'jwt expired') {
+            return res.status(401).json({ message: 'Faça o login novamente!' })
+        }
         return res.status(500).json({ message: 'Erro interno no servidor' })
     }
 

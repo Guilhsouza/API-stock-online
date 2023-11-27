@@ -9,7 +9,7 @@ const createUser = async (req, res) => {
     try {
         const emailExists = await findUserByEmail(email)
 
-        const phoneExists = findUserByPhoneNumber(cellphone_number)
+        const phoneExists = await findUserByPhoneNumber(cellphone_number)
 
         if (emailExists || phoneExists) {
             return res.status(409).json({ message: `Email ou número de telefone já está sendo utilizado por outro usuário, por favor insira um dado diferente.` })
@@ -31,7 +31,6 @@ const createUser = async (req, res) => {
 
         return res.status(201).json(userNotPass)
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ message: 'Erro interno no servidor.' })
     }
 }

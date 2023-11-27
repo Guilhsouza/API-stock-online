@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const secretKey = require('../../keys/hashKey')
+const secretKey = process.env.SECRET_KEY
 const findUserByEmail = require('../../utils/findUserByEmail')
 
 const login = async (req, res) => {
@@ -28,7 +28,6 @@ const login = async (req, res) => {
 
         return res.status(201).json({ user: userNotPass, token })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ message: 'Erro interno no servidor.' })
     }
 }

@@ -7,6 +7,10 @@ const deleteUser = async (req, res) => {
     const usernameSchema = `${req.user.first_name}${req.user.id}`
 
     try {
+        if (id !== String(req.user.id)) {
+            return res.status(401).json({ message: 'usuário não autorizado!' })
+        }
+
         const findUser = await knex('users').where({ id }).first()
 
         if (!findUser) {
@@ -26,6 +30,7 @@ const deleteUser = async (req, res) => {
 
         return res.status(200).json({ message: 'Usuário excluido com sucesso!' })
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ message: 'Erro interno no servidor!' })
     }
 }
