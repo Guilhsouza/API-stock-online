@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const secretKey = require('../keys/hashKey')
+const secretKey = process.env.SECRET_KEY
 const knex = require('../connection/dbConnection')
 
 const verifyToken = async (req, res, next) => {
