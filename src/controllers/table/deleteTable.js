@@ -21,8 +21,11 @@ const deleteTable = async (req, res) => {
 
         const deleteTable = await knex.schema.dropTable(tableName).withSchema(usernameSchema)
 
+        const deleteInMasterTable = await knex('master_table').withSchema(usernameSchema).del().where('table_name', tableName)
+
         return res.status(200).json({ message: 'Tabela excluída com sucesso!' })
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ message: 'Erro interno no servidor.' })
     }
 
