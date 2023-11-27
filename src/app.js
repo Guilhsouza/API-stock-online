@@ -12,4 +12,4 @@ app.use(swaggerRoute)
 app.use(userRoutes)
 app.use(tableRoutes)
 
-app.listen(process.env.PORT)
+module.exports = app

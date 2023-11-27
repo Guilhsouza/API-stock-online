@@ -4,7 +4,7 @@
   "description": "API de um estoque online",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/index.js"
+    "dev": "nodemon ./src/server.js"
   },
   "keywords": [],
   "author": "Guilherme Eduardo de Souza de Almeida",
