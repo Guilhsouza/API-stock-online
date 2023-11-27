@@ -9,9 +9,9 @@ const login = require('../controllers/user/login')
 const validateBodyReq = require('../middlewares/bodyValidate')
 const verifyToken = require('../middlewares/confirmUserToken')
 
-const createUserSchema = require('../schemas/createUserSchema')
-const updateUserSchema = require('../schemas/updateUserSchema')
-const deleteUserSchema = require('../schemas/deleteUserSchema')
+const createUserSchema = require('../schemas/user/createUserSchema')
+const updateUserSchema = require('../schemas/user/updateUserSchema')
+const deleteUserSchema = require('../schemas/user/deleteUserSchema')
 const loginSchema = require('../schemas/loginSchema')
 
 const userRoutes = Router()

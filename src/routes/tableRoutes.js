@@ -11,9 +11,9 @@ const deleteTable = require('../controllers/table/deleteTable')
 const validateBodyReq = require('../middlewares/bodyValidate')
 const verifyToken = require('../middlewares/confirmUserToken')
 
-const createTableSchema = require('../schemas/createTableSchema')
-const addProductsSchema = require('../schemas/addProductsSchema')
-const updateProductsSchema = require('../schemas/updateProductsSchema')
+const createTableSchema = require('../schemas/table/createTableSchema')
+const addProductsSchema = require('../schemas/table/addProductsSchema')
+const updateProductsSchema = require('../schemas/table/updateProductsSchema')
 
 const tableRoutes = Router()
 
