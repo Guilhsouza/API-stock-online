@@ -12,6 +12,10 @@
     {
       "url": "https://localhost:3000",
       "description": "local server"
+    },
+    {
+      "url": "https://api-stock-online.onrender.com",
+      "description": "Deploy"
     }
   ],
   "tags": [
