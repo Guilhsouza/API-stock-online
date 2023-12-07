@@ -3,7 +3,7 @@ const validateBodyReq = (schemaJoi) => async (req, res, next) => {
         await schemaJoi.validateAsync(req.body)
         next()
     } catch (error) {
-        res.status(400).json(error.message)
+        res.status(400).json({ message: error.message })
     }
 }
 
