@@ -29,6 +29,16 @@ describe('Register Users Tests', () => {
             }))
     })
 
+    it('registering a user with not data', async () => {
+        const response = await request(app).post('/user').send({})
+
+        expect(response.statusCode).toBe(400)
+        expect(response.body).toEqual(
+            expect.objectContaining({
+                message: expect.any(String)
+            }))
+    })
+
     it('Registering a user without first name', async () => {
         const { first_name, ...userWithoutFname } = user
 
