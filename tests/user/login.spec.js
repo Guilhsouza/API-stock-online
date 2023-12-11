@@ -3,6 +3,7 @@ const app = require('../../src/app')
 const knex = require('../../src/connection/dbConnection')
 const user = require('../models/userModel')
 const userNotPass = require('../models/userNotPassModel')
+const userLogin = require('../models/userLogin')
 
 describe('Login User tests', () => {
     beforeAll(async () => {
@@ -12,10 +13,7 @@ describe('Login User tests', () => {
     })
 
     beforeEach(async () => {
-        userLogin = {
-            email: 'gui@gmail.com',
-            password: '123456'
-        }
+        userLogin
     })
 
     it('Sucessful login', async () => {
