@@ -84,6 +84,4 @@ describe('Login User tests', () => {
             message: expect.any(String)
         })
     })
-
-    it('invalid token')
 })
