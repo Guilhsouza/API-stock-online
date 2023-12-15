@@ -10,7 +10,7 @@ const login = async (req, res) => {
         const findUser = await findUserByEmail(email)
 
         if (!findUser) {
-            return res.status(404).json({ message: 'Usuário ou senha incorreto!' })
+            return res.status(400).json({ message: 'Usuário ou senha incorreto!' })
         }
 
         const verifyPassword = await bcrypt.compare(password, findUser.password)
@@ -26,7 +26,7 @@ const login = async (req, res) => {
 
         const { password: _, ...userNotPass } = findUser
 
-        return res.status(201).json({ user: userNotPass, token })
+        return res.status(200).json({ user: userNotPass, token })
     } catch (error) {
         return res.status(500).json({ message: 'Erro interno no servidor.' })
     }
