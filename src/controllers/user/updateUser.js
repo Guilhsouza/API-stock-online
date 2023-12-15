@@ -6,6 +6,7 @@ const findUserByPhoneNumber = require('../../utils/findUserByPhoneNumber')
 const updateUser = async (req, res) => {
     const { id } = req.params
     const { first_name, last_name, cellphone_number, email, password } = req.body
+    const conflict409 = () => { return res.status(409).json({ message: `Email ou número de telefone já está sendo utilizado por outro usuário, por favor insira um dado diferente.` }) }
 
     try {
         if (id !== String(req.user.id)) {
@@ -23,12 +24,20 @@ const updateUser = async (req, res) => {
             return res.status(400).json({ message: 'Ao menos um campo deve ser atualizado!' })
         }
 
-        const emailExists = await findUserByEmail(email)
+        if (email) {
+            const emailExists = await findUserByEmail(email)
 
-        const phoneExists = await findUserByPhoneNumber(cellphone_number)
+            if (emailExists) {
+                return conflict409()
+            }
+        }
 
-        if (emailExists || phoneExists) {
-            return res.status(409).json({ message: `Email ou número de telefone já está sendo utilizado por outro usuário, por favor insira um dado diferente.` })
+        if (cellphone_number) {
+            const phoneExists = await findUserByPhoneNumber(cellphone_number)
+
+            if (phoneExists) {
+                return conflict409()
+            }
         }
 
         const updateUser = await knex('users')
