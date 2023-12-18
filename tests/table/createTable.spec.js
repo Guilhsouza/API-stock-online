@@ -35,20 +35,24 @@ describe('Create table tests', () => {
         expect(response.statusCode).toBe(204)
     })
 
-    it('Create table with an existing name', async () => {
+    it('Create table without being logged', async () => {
         const token = data.token
-
-        await request(app)
-            .post('/table')
-            .set('authorization', `Bearer ${token}`)
-            .send({ tableName: 'tabela1' })
 
         const response = await request(app)
             .post('/table')
-            .set('authorization', `Bearer ${token}`)
             .send({ tableName: 'tabela1' })
 
-        expect(response.statusCode).toBe(409)
+        expect(response.statusCode).toBe(401)
+    })
+
+    it('Create table with an existing name', async () => {
+        const token = data.token
+
+        const response = await request(app)
+            .post('/table')
+            .send({ tableName: 'tabela1' })
+
+        expect(response.statusCode).toBe(401)
         expect(response.body).toEqual({
             message: expect.any(String)
         })
