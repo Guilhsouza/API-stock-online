@@ -61,9 +61,6 @@ describe('Delete table tests', () => {
         expect(response.body).toEqual({
             message: expect.any(String)
         })
-
-        await request(app)
-            .delete('/table/')
     })
 
     it('Delete table without being logged', async () => {
