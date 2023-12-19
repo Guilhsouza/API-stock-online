@@ -30,9 +30,13 @@ describe('Create table tests', () => {
         const response = await request(app)
             .post('/table')
             .set('authorization', `Bearer ${token}`)
-            .send({ tableName: 'tabela1' })
+            .send({ tableName: 'testTable' })
 
         expect(response.statusCode).toBe(204)
+
+        const deleteTable = await request(app)
+            .delete('/table/testTable')
+            .set('authorization', `Bearer ${data.token}`)
     })
 
     it('Create table without being logged', async () => {
@@ -40,7 +44,7 @@ describe('Create table tests', () => {
 
         const response = await request(app)
             .post('/table')
-            .send({ tableName: 'tabela1' })
+            .send({ tableName: 'testTable' })
 
         expect(response.statusCode).toBe(401)
     })
@@ -50,7 +54,7 @@ describe('Create table tests', () => {
 
         const response = await request(app)
             .post('/table')
-            .send({ tableName: 'tabela1' })
+            .send({ tableName: 'testTable' })
 
         expect(response.statusCode).toBe(401)
         expect(response.body).toEqual({
