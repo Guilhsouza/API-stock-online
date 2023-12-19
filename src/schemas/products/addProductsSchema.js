@@ -23,7 +23,7 @@ const addProductsSchema = joi.object({
 
     price: joi.number()
         .positive()
-        .precision(2)
+        .integer()
         .messages({
             'number.base': 'O valor precisar ser um número válido.',
             'number.integer': 'O valor precisa ser um número com somente duas casas após a virgula.',
