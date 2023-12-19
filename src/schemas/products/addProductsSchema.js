@@ -31,7 +31,7 @@ const addProductsSchema = joi.object({
         }),
 
     description: joi.string()
-        .max(255)
+        .max(500)
         .messages({
             'string.max': 'A descrição não pode ter mais que 500 caracteres.'
         }),
