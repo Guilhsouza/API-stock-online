@@ -24,7 +24,6 @@ describe('Listing tables tests', () => {
             .send({ tableName: 'testTable' })
 
         return data = {
-            userId: login.body.user.id,
             token: login.body.token
         }
     })

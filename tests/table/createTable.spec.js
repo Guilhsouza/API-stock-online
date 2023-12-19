@@ -19,7 +19,6 @@ describe('Create table tests', () => {
             .send(userLogin)
 
         return data = {
-            userId: login.body.user.id,
             token: login.body.token
         }
     })
