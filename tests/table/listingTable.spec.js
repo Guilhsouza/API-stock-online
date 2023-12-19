@@ -21,12 +21,18 @@ describe('Listing tables tests', () => {
         await request(app)
             .post('/table')
             .set('authorization', `Bearer ${login.body.token}`)
-            .send({ tableName: 'tabela1' })
+            .send({ tableName: 'testTable' })
 
         return data = {
             userId: login.body.user.id,
             token: login.body.token
         }
+    })
+
+    afterEach(async () => {
+        const deleteTable = await request(app)
+            .delete('/table/testTable')
+            .set('authorization', `Bearer ${data.token}`)
     })
 
     it('Listing tables sucessful', async () => {
