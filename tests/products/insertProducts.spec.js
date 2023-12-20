@@ -25,13 +25,23 @@ describe('Insert products tests', () => {
             .send({ tableName: 'testTable' })
 
         return data = {
-            userId: login.body.user.id,
+            usernameSchema: `${login.body.user.first_name}${login.body.user.id}`,
             token: login.body.token,
             tableName: 'testTable'
         }
     })
 
     afterEach(async () => {
+        const containingProduct = await knex(data.tableName)
+            .withSchema(data.usernameSchema)
+            .first()
+
+        if (containingProduct) {
+            const deleteProducts = await request(app)
+                .delete(`/table/testTable/1`)
+                .set('authorization', `Bearer ${data.token}`)
+        }
+
         const deleteTable = await request(app)
             .delete('/table/testTable')
             .set('authorization', `Bearer ${data.token}`)
