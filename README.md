@@ -10,6 +10,7 @@ A **principal ideia** deste projeto é oferecer **operações de usuário e esto
  <img title='Node JS' alt='nodejs' src='https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white' />
  <img title='Express' alt='express' src='https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white' />
  <img title='JsonWebToken' alt='jwt' src='https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white' />
+ <img title='JEST' alt='jest' src='https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white' />
  <img title='PostgreSQL' alt='postgresql' src='https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white' />
  <img title='Nodemon' alt='nodemon' src='https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD' />
  <img title='Swagger' alt='swagger' src='https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white' />
