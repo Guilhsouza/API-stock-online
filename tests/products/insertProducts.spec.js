@@ -19,13 +19,15 @@ describe('Insert products tests', () => {
             .post('/user/login')
             .send(userLogin)
 
+        const usernameSchema = `${login.body.user.first_name}${login.body.user.id}`
+
         const createTable = await request(app)
             .post('/table')
             .set('authorization', `Bearer ${login.body.token}`)
             .send({ tableName: 'testTable' })
 
         return data = {
-            usernameSchema: `${login.body.user.first_name}${login.body.user.id}`,
+            usernameSchema: usernameSchema,
             token: login.body.token,
             tableName: 'testTable'
         }
@@ -62,6 +64,34 @@ describe('Insert products tests', () => {
         })
     })
 
+    it('Insert product without being logged', async () => {
+        const tableName = data.tableName
+
+        const response = await request(app)
+            .post(`/table/${tableName}`)
+            .send(addProduct)
+
+        expect(response.statusCode).toBe(401)
+        expect(response.body).toEqual({
+            message: expect.any(String)
+        })
+    })
+
+    it('Insert product with table not exists', async () => {
+        const token = data.token
+        const tableName = 'unexistedTable'
+
+        const response = await request(app)
+            .post(`/table/${tableName}`)
+            .set('authorization', `Bearer ${token}`)
+            .send(addProduct)
+
+        expect(response.statusCode).toBe(404)
+        expect(response.body).toEqual({
+            message: expect.any(String)
+        })
+    })
+
     it('Insert product without product name', async () => {
         const token = data.token
         const tableName = data.tableName
@@ -81,11 +111,31 @@ describe('Insert products tests', () => {
     it('Insert product with product name containing more than 255 characteres', async () => {
         const token = data.token
         const tableName = data.tableName
+        const { product_name, ...productWithoutName } = addProduct
+
+        const productNameMore255 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eleifend euismod venenatis. Proin tincidunt tortor vitae bibendum malesuada. Fusce ac hendrerit elit. Nullam vehicula, felis id tristique faucibus, justo purus gravida quam, nec luctus mi metus vel velit.'
+
+        productWithoutName.product_name = productNameMore255
+
+        const response = await request(app)
+            .post(`/table/${tableName}`)
+            .set('authorization', `Bearer ${token}`)
+            .send(productWithoutName)
+
+        expect(response.statusCode).toBe(400)
+        expect(response.body).toEqual({
+            message: expect.any(String)
+        })
+    })
+
+    it('Insert product with description containing more than 500 characteres', async () => {
+        const token = data.token
+        const tableName = data.tableName
         const { description, ...productWithoutDescription } = addProduct
 
-        const descriptionMore255 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec justo nec sem feugiat facilisis. Sed malesuada quam eu metus posuere, eu tincidunt elit tincidunt. Integer at velit vestibulum, dignissim eros ac, cursus mi. Proin in odio nec lacus imperdiet vestibulum eu eget justo. Suspendisse potenti. Duis fermentum tellus ac quam tincidunt, id suscipit justo ultrices. Morbi ut consequat nisi. Duis non dictum felis. Vestibulum tristique arcu vel risus ullamcorper, vel luctus elit ultricies. Nam malesuada, nulla in fermentum lacinia, ligula risus aliquam mi, eget accumsan arcu augue et nisl.'
+        const descriptionMore500 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec justo nec sem feugiat facilisis. Sed malesuada quam eu metus posuere, eu tincidunt elit tincidunt. Integer at velit vestibulum, dignissim eros ac, cursus mi. Proin in odio nec lacus imperdiet vestibulum eu eget justo. Suspendisse potenti. Duis fermentum tellus ac quam tincidunt, id suscipit justo ultrices. Morbi ut consequat nisi. Duis non dictum felis. Vestibulum tristique arcu vel risus ullamcorper, vel luctus elit ultricies. Nam malesuada, nulla in fermentum lacinia, ligula risus aliquam mi, eget accumsan arcu augue et nisl.'
 
-        productWithoutDescription.description = descriptionMore255
+        productWithoutDescription.description = descriptionMore500
 
         const response = await request(app)
             .post(`/table/${tableName}`)
@@ -197,6 +247,23 @@ describe('Insert products tests', () => {
             .post(`/table/${tableName}`)
             .set('authorization', `Bearer ${token}`)
             .send(productWithoutPrice)
+
+        expect(response.statusCode).toBe(400)
+        expect(response.body).toEqual({
+            message: expect.any(String)
+        })
+    })
+
+    it('Insert products but link is a number', async () => {
+        const token = data.token
+        const tableName = data.tableName
+
+        addProduct.link = 10
+
+        const response = await request(app)
+            .post(`/table/${tableName}`)
+            .set('authorization', `Bearer ${token}`)
+            .send(addProduct)
 
         expect(response.statusCode).toBe(400)
         expect(response.body).toEqual({
