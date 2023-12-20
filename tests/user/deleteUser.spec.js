@@ -8,11 +8,15 @@ describe('Delete user tests', () => {
     beforeAll(async () => {
         await knex('users').del('*')
 
-        await request(app).post('/user').send(user)
+        await request(app)
+            .post('/user')
+            .send(user)
     })
 
     beforeEach(async () => {
-        const login = await request(app).post('/user/login').send(userLogin)
+        const login = await request(app)
+            .post('/user/login')
+            .send(userLogin)
 
         return data = {
             userId: login.body.user.id,
