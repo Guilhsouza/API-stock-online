@@ -19,7 +19,7 @@ const listingProducts = async (req, res) => {
                 return res.status(404).json({ message: 'A tabela ou o produto não foi encontrado!' })
             }
 
-            return res.status(200).json(findProduct)
+            return res.status(200).json({ products: findProduct })
         }
 
         const listingTable = await knex(tableName).withSchema(usernameSchema)
