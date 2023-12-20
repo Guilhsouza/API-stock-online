@@ -285,7 +285,7 @@ describe('Update products tests', () => {
         })
     })
 
-    it('Update products with table not exists', async () => {
+    it('Update products if the table does not exists', async () => {
         const token = data.token
         const tableName = 'unexistedTable'
         const productId = data.productId
@@ -301,7 +301,7 @@ describe('Update products tests', () => {
         })
     })
 
-    it('Update products with product not exists', async () => {
+    it('Update products if it does not exist', async () => {
         const token = data.token
         const tableName = data.tableName
         const productId = 999999
