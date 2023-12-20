@@ -27,7 +27,7 @@ const updateProductsSchema = joi.object({
         }),
 
     description: joi.string()
-        .max(255)
+        .max(500)
         .messages({
             'string.empty': 'A descrição não pode estar vazia.',
             'string.max': 'A descrição não pode ter mais que 500 caracteres.'
