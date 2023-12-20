@@ -1,15 +1,6 @@
 const joi = require('joi')
 
 const updateProductsSchema = joi.object({
-    id: joi.number()
-        .integer()
-        .positive()
-        .messages({
-            'number.base': 'O ID precisar ser um número válido.',
-            'number.integer': 'O ID precisa ser um número inteiro.',
-            'number.positive': 'O ID precisa ser um número positivo.'
-        }),
-
     product_name: joi.string()
         .max(255)
         .messages({
